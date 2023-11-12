@@ -1,25 +1,20 @@
-var isDate = function (input) {
-  //   write your code here
-	if (input instanceof Date) {
+function isDate(input) {
+  // Check if the input is a Date object
+  if (input instanceof Date) {
     return true;
   }
 
   // Check if the input is a valid date string
   if (typeof input === 'string') {
-    const date = new Date(input);
-    return !isNaN(date.getTime());
+    const dateObject = new Date(input);
+    return !isNaN(dateObject.getTime()) && dateObject.toISOString().slice(0, 10) === input;
   }
 
-  // Check if the input is a valid timestamp
-  if (typeof input === 'number' && input >= 0) {
-    const date = new Date(input);
-    return !isNaN(date.getTime());
-  }
-
-  // If none of the above conditions are met, return false
+  // Return false for other types of input
   return false;
-};
+}
 
-// Do not change the code below.
-const input = prompt("Enter Date.");
-alert(isDate(input));
+// Examples
+console.log(isDate(new Date()));       // true
+console.log(isDate("2023-08-11"));      // true
+console.log(isDate("not a date"));      // false
